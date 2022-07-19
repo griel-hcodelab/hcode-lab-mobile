@@ -1,86 +1,29 @@
-import { useState } from "react";
-import {
-  Alert,
-  Button,
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "./screens/HomeScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import SearchScreen from "./screens/SearchScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import "react-native-gesture-handler";
+
+type RootStackParamList = {
+  Home: undefined;
+  Search: undefined;
+  Settings: undefined;
+  Profile: { userId: string };
+};
+
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const [login, onChangeLogin] = useState<string>();
-  const [password, onChangePassword] = useState<string>();
-
   return (
-    <ImageBackground
-      style={styles.backgroundImage}
-      source={require("./assets/background.jpg")}
-      blurRadius={5}
-    >
-      <Image
-        style={styles.logo}
-        source={{
-          uri: "https://ac-landing-pages-user-uploads-production.s3.amazonaws.com/0000096660/408c4e7d-a260-47d5-a435-51e319952837.webp",
-        }}
-      />
-      <Text style={H1}>Hcode Lab Mobile Developer</Text>
-      <Button
-        color="#f194ff"
-        onPress={() => {
-          Alert.alert("Em breve");
-        }}
-        title="Acessar"
-      />
-    </ImageBackground>
+    <NavigationContainer>
+      <RootStack.Navigator>
+        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen name="Search" component={SearchScreen} />
+        <RootStack.Screen name="Settings" component={SettingsScreen} />
+        <RootStack.Screen name="Profile" component={ProfileScreen} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#e4e4e4",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  bold: {
-    fontWeight: "bold",
-    fontSize: 32,
-  },
-  title: {
-    margin: 20,
-    alignSelf: "center",
-    textAlign: "center",
-    color: "#fff",
-  },
-  textInput: {
-    height: 40,
-    width: 200,
-    margin: 12,
-    borderWidth: 0,
-    padding: 10,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-  },
-  logo: {
-    height: 200,
-    width: 200,
-    resizeMode: "contain",
-    borderRadius: 10,
-    alignSelf: "center",
-  },
-  language: {
-    height: 200,
-    width: 100,
-    resizeMode: "contain",
-    borderRadius: 10,
-  },
-  backgroundImage: {
-    flex: 1,
-    justifyContent: "center",
-    resizeMode: "stretch",
-  },
-});
-
-const H1 = StyleSheet.flatten([styles.bold, styles.title]);
