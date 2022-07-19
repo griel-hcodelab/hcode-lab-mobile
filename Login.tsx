@@ -1,24 +1,13 @@
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-  Alert,
-  Button,
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
   const [login, onChangeLogin] = useState<string>();
   const [password, onChangePassword] = useState<string>();
 
   return (
-    <ImageBackground
-      style={styles.backgroundImage}
-      source={require("./assets/background.jpg")}
-      blurRadius={5}
-    >
+    <View style={styles.container}>
       <Image
         style={styles.logo}
         source={{
@@ -26,14 +15,26 @@ export default function App() {
         }}
       />
       <Text style={H1}>Hcode Lab Mobile Developer</Text>
-      <Button
-        color="#f194ff"
-        onPress={() => {
-          Alert.alert("Em breve");
-        }}
-        title="Acessar"
-      />
-    </ImageBackground>
+      <View>
+        <Text>Login</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Digite o login"
+          value={login}
+          onChangeText={onChangeLogin}
+        />
+        <Text>Senha</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Digite a senha"
+          value={password}
+          onChangeText={onChangePassword}
+          secureTextEntry={true}
+        />
+      </View>
+      <Image style={styles.language} source={require("./assets/php.png")} />
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
@@ -52,7 +53,6 @@ const styles = StyleSheet.create({
     margin: 20,
     alignSelf: "center",
     textAlign: "center",
-    color: "#fff",
   },
   textInput: {
     height: 40,
@@ -65,21 +65,15 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: 200,
-    width: 200,
+    width: 300,
     resizeMode: "contain",
     borderRadius: 10,
-    alignSelf: "center",
   },
   language: {
     height: 200,
     width: 100,
     resizeMode: "contain",
     borderRadius: 10,
-  },
-  backgroundImage: {
-    flex: 1,
-    justifyContent: "center",
-    resizeMode: "stretch",
   },
 });
 
